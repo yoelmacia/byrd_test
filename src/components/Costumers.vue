@@ -25,7 +25,14 @@
           @input="selectDateTo = fixDate($event)"
         ></Datepicker>
       </div>
-      <div class="submit"><input type="submit" value="Submit" /></div>
+      <div class="submit">
+        <input type="submit" value="Submit" @click="getAllOrders()" />
+      </div>
+      <div v-if="orders.length">
+        <div class="orders">
+          {{ orders }}
+        </div>
+      </div>
     </div>
     <div class="invalid" v-else>
       No data
@@ -35,6 +42,7 @@
 
 <script>
 import listAllCostumers from "../services/listAllCostumers";
+import listAllOrdersByConsumer from "../services/listAllOrdersByCostumer";
 import Datepicker from "vuejs-datepicker";
 import moment from "moment";
 export default {
@@ -45,6 +53,7 @@ export default {
   data() {
     return {
       costumers: [],
+      orders: [],
       selected: "",
       selectDateFrom: "",
       selectDateTo: ""
@@ -64,6 +73,16 @@ export default {
     },
     fixDate(event) {
       return moment(event).format("YYYY-MM-DDTH:MM:SSZ");
+    },
+    getAllOrders() {
+      listAllOrdersByConsumer
+        .get(this.selected, this.selectDateFrom, this.selectDateTo)
+        .then(response => {
+          this.orders = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };
