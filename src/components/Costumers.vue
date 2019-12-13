@@ -1,28 +1,31 @@
 <template>
   <div>
-    <div class="valid" v-if="costumers.length">
-      <div class="valid-item">
-        <span>id </span>
-        <select v-model="selected">
-          <option v-for="(item, index) in costumers" :key="index">
-            {{ item.id }}
-          </option>
-        </select>
+    <div v-if="costumers.length">
+      <div class="valid">
+        <div class="valid-item">
+          <span>id </span>
+          <select v-model="selected">
+            <option v-for="(item, index) in costumers" :key="index">
+              {{ item.id }}
+            </option>
+          </select>
+        </div>
+        <Datepicker
+          class="valid-item"
+          placeholder="Select Date From"
+          :value="selectDateFrom"
+          format="yyyy-MM-dd"
+          @input="selectDateFrom = fixDate($event)"
+        ></Datepicker>
+        <Datepicker
+          class="valid-item"
+          placeholder="Select Date To"
+          :value="selectDateTo"
+          format="yyyy-MM-dd"
+          @input="selectDateTo = fixDate($event)"
+        ></Datepicker>
       </div>
-      <Datepicker
-        class="valid-item"
-        placeholder="Select Date From"
-        :value="selectDateFrom"
-        format="yyyy-MM-dd"
-        @input="selectDateFrom = fixDate($event)"
-      ></Datepicker>
-      <Datepicker
-        class="valid-item"
-        placeholder="Select Date To"
-        :value="selectDateTo"
-        format="yyyy-MM-dd"
-        @input="selectDateTo = fixDate($event)"
-      ></Datepicker>
+      <div class="submit"><input type="submit" value="Submit" /></div>
     </div>
     <div class="invalid" v-else>
       No data
@@ -77,5 +80,8 @@ export default {
 }
 .valid-item {
   margin: 10px auto;
+}
+.submit {
+  background-color: aliceblue;
 }
 </style>
