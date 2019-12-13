@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="valid" v-if="costumers.length">
-      <select v-model="selected">
-        <option v-for="(item, index) in costumers" :key="index">
-          {{ item.id }}
-        </option>
-      </select>
-      <span>Selected: {{ selected }}</span>
+      <div>
+        <span>id </span>
+        <select v-model="selected">
+          <option v-for="(item, index) in costumers" :key="index">
+            {{ item.id }}
+          </option>
+        </select>
+      </div>
     </div>
     <div class="invalid" v-else>
       No data
