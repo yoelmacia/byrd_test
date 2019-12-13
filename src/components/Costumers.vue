@@ -1,6 +1,16 @@
 <template>
   <div>
-    {{ costumers }}
+    <div class="valid" v-if="costumers.length">
+      <select v-model="selected">
+        <option v-for="(item, index) in costumers" :key="index">
+          {{ item.id }}
+        </option>
+      </select>
+      <span>Selected: {{ selected }}</span>
+    </div>
+    <div class="invalid" v-else>
+      No data
+    </div>
   </div>
 </template>
 
@@ -10,7 +20,8 @@ export default {
   name: "Costumers",
   data() {
     return {
-      costumers: []
+      costumers: [],
+      selected: ""
     };
   },
   created() {
@@ -20,7 +31,9 @@ export default {
     fetchData() {
       listAllCostumers
         .get()
-        .then(response => (this.costumers = response.data))
+        .then(response => {
+          this.costumers = response.data;
+        })
         .catch(error => console.log(error));
     }
   }
