@@ -12,12 +12,16 @@
       <Datepicker
         class="valid-item"
         placeholder="Select Date From"
-        v-model="selectDateFrom"
+        :value="selectDateFrom"
+        format="yyyy-MM-dd"
+        @input="selectDateFrom = fixDate($event)"
       ></Datepicker>
       <Datepicker
         class="valid-item"
         placeholder="Select Date To"
-        v-model="selectDateTo"
+        :value="selectDateTo"
+        format="yyyy-MM-dd"
+        @input="selectDateTo = fixDate($event)"
       ></Datepicker>
     </div>
     <div class="invalid" v-else>
@@ -29,6 +33,7 @@
 <script>
 import listAllCostumers from "../services/listAllCostumers";
 import Datepicker from "vuejs-datepicker";
+import moment from "moment";
 export default {
   name: "Costumers",
   components: {
@@ -53,6 +58,9 @@ export default {
           this.costumers = response.data;
         })
         .catch(error => console.log(error));
+    },
+    fixDate(event) {
+      return moment(event).format("YYYY-MM-DDTH:MM:SSZ");
     }
   }
 };
