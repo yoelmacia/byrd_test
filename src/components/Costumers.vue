@@ -30,6 +30,17 @@
       </div>
       <div v-if="orders.length">
         <div class="orders">
+          <div class="summary">
+            <div class="summary-num-orders">Number of orders: {{orders.length}}</div>
+            <div
+              class="summary-total-invoice"
+            >The total amount to invoice: {{ totalAmountToInvoice(orders) }} EUR</div>
+            <div class="summary-date-from">Date From: {{selectDateFrom}}</div>
+            <div class="summary-date-to">Select To: {{selectDateTo}}</div>
+            <div
+              class="summary-diference-days"
+            >Diference in Days: {{ diferenceInDays(selectDateFrom,selectDateTo) }} days</div>
+          </div>
           <ul id="orders-list">
             <li v-for="(order,index) in orders" v-bind:key="index">
               <div class="order-id">{{order.id}}</div>
@@ -110,6 +121,19 @@ export default {
       });
       return total;
     },
+    totalAmountToInvoice(orders) {
+      let total = 0;
+      orders.forEach(element => {
+        total += parseFloat(element.charge_customer.total_price);
+      });
+      return total;
+    },
+    diferenceInDays(selectDateFrom, selectDateTo) {
+      let dateFrom = new Date(selectDateFrom);
+      let dateTo = new Date(selectDateTo);
+      let differenceInTime = dateTo.getTime() - dateFrom.getTime();
+      let differenceInDays = differenceInTime / (1000 * 3600 * 24);
+      return differenceInDays;
     }
   }
 };
