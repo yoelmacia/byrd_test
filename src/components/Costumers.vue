@@ -4,14 +4,17 @@
       <form @submit.prevent="getAllOrders">
         <div class="valid">
           <div class="valid-item">
-            <span>id</span>
-            <select v-model="selected">
+            <select v-model="selected" class="select">
+              <option value="" selected="selected" hidden="hidden"
+                >Select Id</option
+              >
               <option v-for="(item, index) in costumers" :key="index">{{
                 item.id
               }}</option>
             </select>
           </div>
           <Datepicker
+            input-class="input-item"
             class="valid-item"
             placeholder="Select Date From"
             :value="selectDateFrom"
@@ -19,6 +22,7 @@
             @input="selectDateFrom = fixDate($event)"
           ></Datepicker>
           <Datepicker
+            input-class="input-item"
             class="valid-item"
             placeholder="Select Date To"
             :value="selectDateTo"
@@ -171,17 +175,32 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .valid {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 100px;
   background-color: aliceblue;
 }
+.input-item {
+  text-align: center;
+  font-size: larger;
+  width: 200px;
+  height: 50px;
+}
+.select {
+  font-size: large;
+  color: grey;
+  border: none;
+  text-align-last: center;
+  background-color: white;
+  width: 200px;
+  height: 28px;
+}
 .valid-item {
-  margin: 10px auto;
+  margin: 30px auto;
 }
 .button {
   background: #3ab409;
