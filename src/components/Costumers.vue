@@ -30,7 +30,26 @@
       </div>
       <div v-if="orders.length">
         <div class="orders">
-          {{ orders }}
+          <ul id="orders-list">
+            <li v-for="(order,index) in orders" v-bind:key="index">
+              <div class="order-id">{{order.id}}</div>
+              <div class="order-recipient-name">{{order.recipient.name}}</div>
+              <div class="order-recipient-email">{{order.recipient.email}}</div>
+              <div class="order-total-price">{{ totalPriceOrder(order.items) }} EUR</div>
+              <div class="order_created">{{order.created_at}}</div>Items:
+              <div v-for="(item,index) in order.items" v-bind:key="index" class="order-items">
+                <div class="order-item-id">{{item.id}}</div>
+                <div class="order-item-name">{{item.name}}</div>
+                <div class="order-item-quantity">{{item.quantity}}</div>
+                <div class="order-item-currency">{{item.total_price.currency}}</div>
+                <div class="order-item-amount">{{item.total_price.amount}}</div>
+              </div>Delivery Details:
+              <div class="order-delivery">
+                <div class="order-delivery-courier">{{order.delivery.courier}}</div>
+                <div class="order-delivery-method">{{order.delivery.method}}</div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -83,6 +102,14 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    totalPriceOrder(items) {
+      let total = 0;
+      items.forEach(element => {
+        total += parseFloat(element.total_price.amount);
+      });
+      return total;
+    },
     }
   }
 };
