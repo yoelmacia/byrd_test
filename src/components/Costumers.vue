@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="costumers.length">
-      <form @submit.prevent="submit">
+      <form @submit.prevent="getAllOrders">
         <div class="valid">
           <div class="valid-item">
             <span>id</span>
@@ -27,7 +27,7 @@
           ></Datepicker>
         </div>
         <div class="text-center">
-          <button type="submit" class="button" @click="getAllOrders()">
+          <button type="submit" class="button">
             Submit
           </button>
         </div>
@@ -129,14 +129,22 @@ export default {
       return moment(event).format("YYYY-MM-DDTH:MM:SSZ");
     },
     getAllOrders() {
-      listAllOrdersByConsumer
-        .get(this.selected, this.selectDateFrom, this.selectDateTo)
-        .then(response => {
-          this.orders = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      if (this.selectDateFrom === "") {
+        alert("Select date from");
+      } else if (this.selectDateTo === "") {
+        alert("Select date to");
+      } else if (this.selected === "") {
+        alert("Select one id");
+      } else {
+        listAllOrdersByConsumer
+          .get(this.selected, this.selectDateFrom, this.selectDateTo)
+          .then(response => {
+            this.orders = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     },
     totalPriceOrder(items) {
       let total = 0;
