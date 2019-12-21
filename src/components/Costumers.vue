@@ -203,6 +203,7 @@ export default {
   margin: 30px auto;
 }
 .button {
+  margin: 10px;
   background: #3ab409;
   padding: 0.5rem 1rem;
   color: white;
