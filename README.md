@@ -8,37 +8,37 @@ This is a test code to create a invoice app for byrd
 npm install
 ```
 
-### To run the reaction application once everything is installed
+## To run the reaction application once everything is installed
 
 ```
 npm run serve
 ```
 
-#### To run the test
+## To run the test
 
 ```
 npm run test:unit
 ```
 
-#### General description
+### General description
 
 The application is made with Vue-CLI, so it will run at localhost:8080.
 
-I decided to implement the test with VueJS because I know how the framework works and I think it's super simple.
+1. Implement the test with VueJS because I know how the framework works and I think it's super simple.
 
-I used a component, already created in Vue called "Datepicker" for the dates.
+2. Use component in Vue called "Datepicker" for the dates.
 
-I used "moment" for the format of those dates.
+3. Use "moment" for the format of those dates.
 
-I used "axios" to make request to the API.
+4. Use "axios" to make request to the API.
 
-I used plain CSS to style the components.
+5. Use plain CSS to style the components.
 
-The application has two components Costumers and Orders.
+6. The application has two components Costumers and Orders.
 
-Add unit test with Jest for every component.
+7. Add unit test with Jest for every component.
 
-#### Version 2.0
+### Version 2.0
 
 Implement Vuex to save the state of the application then the user could refresh the browser without lose the changes.
 
